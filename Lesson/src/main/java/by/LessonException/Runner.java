@@ -20,13 +20,15 @@ public class Runner {
 
         int rows = array.length;
         int columns = array.length;
-            if (array.length != 4)throw new MyArraySizeException();
-                for (String[] strings : array) {
-                    if (strings.length != 4) throw new MyArraySizeException();
-                }
+        if (array.length != 4){
+            throw new MyArraySizeException();
+        }
         int sum = 0;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
+                if (array[i].length != 4) {
+                    throw new MyArraySizeException();
+                }
                 try {
                     int value = Integer.parseInt(array[i][j]);
                     sum += value;
