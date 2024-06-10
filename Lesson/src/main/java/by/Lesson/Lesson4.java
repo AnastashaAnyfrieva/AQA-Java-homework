@@ -1,4 +1,4 @@
-package by.Lesson4;
+package by.Lesson;
 
 public class Lesson4 {
 
@@ -38,12 +38,7 @@ public class Lesson4 {
     public static void checkSumSign() {
         int a = 5;
         int b = -3;
-        int sum = a + b;
-        if (sum >= 0) {
-            System.out.println("Сумма положительная");
-        } else {
-            System.out.println("Сумма отрицательная");
-        }
+        System.out.println("Сумма положительная");
     }
 
     public static void printColor() {

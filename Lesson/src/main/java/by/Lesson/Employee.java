@@ -1,3 +1,5 @@
+package by.Lesson;
+
 public class Employee {
 
     private final String fullname;
