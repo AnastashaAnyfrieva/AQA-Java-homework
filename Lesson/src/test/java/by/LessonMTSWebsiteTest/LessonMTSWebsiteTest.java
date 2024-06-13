@@ -17,22 +17,21 @@ import java.time.Duration;
 
 public class LessonMTSWebsiteTest {
 
-        private static final Logger logger = LoggerFactory.getLogger(LessonMTSWebsiteTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(LessonMTSWebsiteTest.class);
 
-        @Test
-        public void testSomething() {
-            logger.debug("This is a debug message");
-            logger.info("This is an info message");
-            logger.warn("This is a warning message");
-            logger.error("This is an error message");
-        }
+    @Test
+    public void testSomething() {
+        logger.debug("This is a debug message");
+        logger.info("This is an info message");
+        logger.warn("This is a warning message");
+        logger.error("This is an error message");
+    }
 
     WebDriver driver;
     WebDriverWait wait;
 
     @BeforeClass
     public void setupAll() {
-
         WebDriverManager.chromedriver().setup();
     }
 
@@ -50,7 +49,6 @@ public class LessonMTSWebsiteTest {
         // 1. Проверить название указанного блока
         WebElement onlinePaymentBlock = driver.findElement(By.xpath("//section[@class='pay']//h2"));
         Assert.assertEquals(onlinePaymentBlock.getText(), "Онлайн пополнение\nбез комиссии");
-
         // 2. Проверить наличие логотипов платёжных систем
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='pay__partners']")).isDisplayed());
     }
@@ -62,7 +60,6 @@ public class LessonMTSWebsiteTest {
         WebElement moreInfoLink = driver.findElement(By.xpath("//div[@class='pay__wrapper']/a"));
         moreInfoLink.click();
         Assert.assertTrue(driver.getCurrentUrl().contains("https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/"));
-
     }
 
     @Test
@@ -80,8 +77,6 @@ public class LessonMTSWebsiteTest {
         WebElement continueButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Продолжить']")));
         continueButton.click();
     }
-
-    /**/
 
     private void acceptCookies() {
         try {
