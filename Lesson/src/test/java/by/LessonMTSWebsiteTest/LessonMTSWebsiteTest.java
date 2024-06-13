@@ -76,6 +76,8 @@ public class LessonMTSWebsiteTest {
         sumInput.sendKeys("5");
         WebElement continueButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Продолжить']")));
         continueButton.click();
+        WebElement totalSumElement = null;
+        Assert.assertTrue(totalSumElement.isDisplayed());
     }
 
     private void acceptCookies() {
