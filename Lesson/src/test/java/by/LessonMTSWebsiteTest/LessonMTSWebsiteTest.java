@@ -10,22 +10,9 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.time.Duration;
 
 public class LessonMTSWebsiteTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(LessonMTSWebsiteTest.class);
-
-    @Test
-    public void testSomething() {
-        logger.debug("This is a debug message");
-        logger.info("This is an info message");
-        logger.warn("This is a warning message");
-        logger.error("This is an error message");
-    }
 
     WebDriver driver;
     WebDriverWait wait;
@@ -76,8 +63,10 @@ public class LessonMTSWebsiteTest {
         sumInput.sendKeys("5");
         WebElement continueButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Продолжить']")));
         continueButton.click();
-        WebElement totalSumElement = null;
-        Assert.assertTrue(totalSumElement.isDisplayed());
+        WebElement iframe = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.cssSelector("div.bepaid-app iframe")));
+        driver.switchTo().frame(iframe);
+
     }
 
     private void acceptCookies() {
@@ -92,7 +81,7 @@ public class LessonMTSWebsiteTest {
         }
     }
 
-    @AfterTest
+    @AfterMethod
     public void teardown() {
         try {
             driver.quit();
