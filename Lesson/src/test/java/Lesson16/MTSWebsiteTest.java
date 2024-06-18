@@ -34,52 +34,48 @@ public class MTSWebsiteTest {
     @Test
     public void testUnfilledPaymentFieldsCommunicationServices() {
         // Проверка надписей в незаполненных полях сервиса "Услуги связи"
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
         serviceLink.click();
         WebElement phoneInput = driver.findElement(By.xpath("//input[@placeholder='Номер телефона']"));
         WebElement sumInput = driver.findElement(By.xpath("//input[@placeholder='Сумма']"));
         WebElement emailInput = driver.findElement(By.xpath("//input[@placeholder='E-mail для отправки чека']"));
 
-        Assert.assertEquals(phoneInput.getAttribute("placeholder"), "Номер телефона");
-        Assert.assertEquals(sumInput.getAttribute("placeholder"), "Сумма");
-        Assert.assertEquals(emailInput.getAttribute("placeholder"), "E-mail для отправки чека");
+        Assert.assertTrue(phoneInput.isDisplayed(), "Номер телефона");
+        Assert.assertTrue(sumInput.isDisplayed(), "Сумма");
+        Assert.assertTrue(emailInput.isDisplayed(), "E-mail для отправки чека");
     }
 
     @Test
     public void testUnfilledPaymentFieldsHomeInternet() {
         // Проверка надписей в незаполненных полях сервиса "Домашний интернет"
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
         serviceLink.click();
         WebElement phoneInput = driver.findElement(By.xpath("//input[@placeholder='Номер абонента']"));
         WebElement sumInput = driver.findElement(By.xpath("//input[@placeholder='Сумма']"));
         WebElement emailInput = driver.findElement(By.xpath("//input[@placeholder='E-mail для отправки чека']"));
 
-        Assert.assertEquals(phoneInput.getAttribute("placeholder"), "Номер абонента");
-        Assert.assertEquals(sumInput.getAttribute("placeholder"), "Сумма");
-        Assert.assertEquals(emailInput.getAttribute("placeholder"), "E-mail для отправки чека");
+        Assert.assertTrue(phoneInput.isDisplayed(), "Номер абонента");
+        Assert.assertTrue(sumInput.isDisplayed(), "Сумма");
+        Assert.assertTrue(emailInput.isDisplayed(), "E-mail для отправки чека");
     }
 
     @Test
     public void testUnfilledPaymentFieldsInstallment() {
         // Проверка надписей в незаполненных полях сервиса "Рассрочка"
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
         serviceLink.click();
         WebElement phoneInput = driver.findElement(By.xpath("//input[@placeholder='Номер счета на 44']"));
         WebElement sumInput = driver.findElement(By.xpath("//input[@placeholder='Сумма']"));
         WebElement emailInput = driver.findElement(By.xpath("//input[@placeholder='E-mail для отправки чека']"));
 
-        Assert.assertEquals(phoneInput.getAttribute("placeholder"), "Номер счета на 44");
-        Assert.assertEquals(sumInput.getAttribute("placeholder"), "Сумма");
-        Assert.assertEquals(emailInput.getAttribute("placeholder"), "E-mail для отправки чека");
+        Assert.assertTrue(phoneInput.isDisplayed(), "Номер счета на 44");
+        Assert.assertTrue(sumInput.isDisplayed(), "Сумма");
+        Assert.assertTrue(emailInput.isDisplayed(), "E-mail для отправки чека");
     }
 
     @Test
     public void testUnfilledPaymentFieldsDebt() {
         // Проверка надписей в незаполненных полях сервиса "Задолженность"
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement dropDown = wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='select__header']"))));
         dropDown.click();
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
@@ -88,15 +84,14 @@ public class MTSWebsiteTest {
         WebElement sumInput = driver.findElement(By.xpath("//input[@placeholder='Сумма']"));
         WebElement emailInput = driver.findElement(By.xpath("//input[@placeholder='E-mail для отправки чека']"));
 
-        Assert.assertEquals(phoneInput.getAttribute("placeholder"), "Номер счета на 2073");
-        Assert.assertEquals(sumInput.getAttribute("placeholder"), "Сумма");
-        Assert.assertEquals(emailInput.getAttribute("placeholder"), "E-mail для отправки чека");
+        Assert.assertTrue(phoneInput.isDisplayed(), "Номер счета на 2073");
+        Assert.assertTrue(sumInput.isDisplayed(), "Сумма");
+        Assert.assertTrue(emailInput.isDisplayed(), "E-mail для отправки чека");
     }
 
     @Test
     public void testMobileServicePayment() {
         // Заполнение полей и проверка корректности отображения информации для "Услуги связи"
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
         serviceLink.click();
         Assert.assertTrue(serviceLink.isDisplayed(), "Услуги связи");
@@ -110,7 +105,6 @@ public class MTSWebsiteTest {
         driver.switchTo().frame(iframe);
 
         // Проверка на отображение информации для оплаты
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement totalSumElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='5.00 BYN']")));
         WebElement payDescription = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Оплата:')]")));
         WebElement payButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()=' Оплатить  5.00 BYN ']")));
