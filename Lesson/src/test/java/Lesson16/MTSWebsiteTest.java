@@ -1,5 +1,7 @@
 package Lesson16;
 
+import io.qameta.allure.*;
+import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,11 +20,13 @@ public class MTSWebsiteTest {
     WebDriverWait wait;
 
     @BeforeClass
+    @Description("Настройка менеджера WebDriverManager")
     public void setupAll() {
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeMethod
+    @Description("Настройка браузера и перехода на сайт МТС")
     public void setup() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
@@ -32,6 +36,9 @@ public class MTSWebsiteTest {
     }
 
     @Test
+    @Description("Проверка надписей в незаполненных полях сервиса \"Услуги связи\"")
+    @Feature("Услуги связи")
+    @Story("Проверка незаполненных полей")
     public void testUnfilledPaymentFieldsCommunicationServices() {
         // Проверка надписей в незаполненных полях сервиса "Услуги связи"
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
@@ -46,6 +53,10 @@ public class MTSWebsiteTest {
     }
 
     @Test
+    @Description("Проверка надписей в незаполненных полях сервиса \"Домашний интернет\"")
+    @Feature("Домашний интернет")
+    @Story("Проверка незаполненных полей")
+    @Severity(SeverityLevel.CRITICAL)
     public void testUnfilledPaymentFieldsHomeInternet() {
         // Проверка надписей в незаполненных полях сервиса "Домашний интернет"
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
@@ -60,6 +71,10 @@ public class MTSWebsiteTest {
     }
 
     @Test
+    @Feature("Рассрочка")
+    @Story("Проверка незаполненных полей")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Проверка надписей в незаполненных полях сервиса \"Рассрочка\"")
     public void testUnfilledPaymentFieldsInstallment() {
         // Проверка надписей в незаполненных полях сервиса "Рассрочка"
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
@@ -74,6 +89,10 @@ public class MTSWebsiteTest {
     }
 
     @Test
+    @Feature("Задолженность")
+    @Story("Проверка незаполненных полей")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Проверка надписей в незаполненных полях сервиса \"Задолженность\"")
     public void testUnfilledPaymentFieldsDebt() {
         // Проверка надписей в незаполненных полях сервиса "Задолженность"
         WebElement dropDown = wait.until((ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='select__header']"))));
@@ -90,6 +109,19 @@ public class MTSWebsiteTest {
     }
 
     @Test
+    @Feature("Услуги связи")
+    @Story("Заполнение полей и проверка корректности отображения информации")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Заполнение полей и проверка корректности отображения информации для \"Услуги связи\".\n" +
+            "Этот код выполняет следующие действия:\n" +
+            "1. Кликает на ссылку \"Услуги связи\" и проверяет, что она отображается.\n" +
+            "2. Вводит номер телефона \"297777777\" и сумму \"5\" в соответствующие поля.\n" +
+            "3. Кликает на кнопку \"Продолжить\".\n" +
+            "4. Переключается на iframe для отображения информации об оплате.\n" +
+            "5. Проверяет, что отображается сумма \"5.00 BYN\", описание \"Оплата: Услуги связи Номер:375297777777\" и кнопка \"Оплатить 5.00 BYN\".\n" +
+            "6. Проверяет, что в незаполненных полях отображаются правильные подсказки: \"Номер карты\", \"Срок действия\", \"CVC\", \"Имя держателя (как на карте)\".\n" +
+            "7. Проверяет, что отображаются иконки платежных систем: Mastercard, Visa, Belkart, Mir.\n" +
+            "8. Проверяет, что отображаются кнопки Google Pay и Yandex Pay.")
     public void testMobileServicePayment() {
         // Заполнение полей и проверка корректности отображения информации для "Услуги связи"
         WebElement serviceLink = driver.findElement(By.xpath("//span[@class='select__now']"));
@@ -109,7 +141,7 @@ public class MTSWebsiteTest {
         WebElement payDescription = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Оплата:')]")));
         WebElement payButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()=' Оплатить  5.00 BYN ']")));
 
-        Assert.assertTrue(payButton.isDisplayed(), "5.00 BYN");
+        Assert.assertTrue(totalSumElement.isDisplayed(), "5.00 BYN");
         Assert.assertTrue(payDescription.isDisplayed(), "Оплата: Услуги связи Номер:375297777777");
         Assert.assertTrue(payButton.isDisplayed(), " Оплатить  5.00 BYN ");
 
@@ -142,6 +174,7 @@ public class MTSWebsiteTest {
         Assert.assertTrue(YandexPayButton.isDisplayed(), "Yandex Pay");
     }
 
+    @Step("Принять cookie")
     private void acceptCookies() {
         try {
             WebElement cookieButton = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath
